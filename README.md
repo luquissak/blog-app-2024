@@ -11,7 +11,7 @@ gcloud services enable aiplatform.googleapis.com
 get-content genkit-flows-app/src/index.ts | %{$_ -replace "us-central1","southamerica-east1"}
 ```
 
-# Test
+# Run
 
 ```bash
 get-content .env | foreach {
@@ -19,4 +19,6 @@ get-content .env | foreach {
     set-content env:\$name $value
     echo $name $value
 }
+
+cd genkit-flows-app && genkit start
 ```
