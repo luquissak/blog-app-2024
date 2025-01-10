@@ -7,6 +7,8 @@ import { gemini15Flash } from "@genkit-ai/vertexai";
 import { defineDotprompt } from "@genkit-ai/dotprompt";
 import { defineTool } from '@genkit-ai/ai';
 import { Storage } from '@google-cloud/storage';
+import { readFile } from 'fs/promises';
+import {pdfToText} from 'pdf-ts';
 
 
 
@@ -27,8 +29,10 @@ const getPostTextTool = defineTool(
     const storage = new Storage();
     const postFile = storage.bucket("blog-files-2024").file("all/pdf2/2013-11-28_Fase.pdf");
     console.log(postFile.name);
-    const contents = await postFile.download();
-    return contents.toString();
+    const contents = await postFile.download({destination: "test.pdf"});
+    const content = await readFile('./test.pdf');
+    const text = await pdfToText(content);
+    return text;
   }
 );
 
