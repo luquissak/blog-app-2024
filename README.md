@@ -22,3 +22,14 @@ get-content .env | foreach {
 
 cd genkit-flows-app && genkit start
 ```
+
+# Run
+
+- Input JSON (classification):
+
+```bash
+{
+  "url": "all/pdf2/2016-02-18_Projeto_Capitalismo_e_Esquizofrenia_.pdf",
+  "content": ""
+}
+```
