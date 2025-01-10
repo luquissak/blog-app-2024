@@ -25,11 +25,17 @@ cd genkit-flows-app && genkit start
 
 # Run
 
-- Input JSON (classification):
+- Input JSON (classification) [classificationFlow](http://localhost:4000/run/%252Fflow%252FclassificationFlow):
 
 ```bash
-{
-  "url": "all/pdf2/2016-02-18_Projeto_Capitalismo_e_Esquizofrenia_.pdf",
-  "content": ""
-}
+genkit flow:run classificationFlow '{"url": "all/pdf2/2016-02-18_Projeto_Capitalismo_e_Esquizofrenia_.pdf","content": ""}' -s 
 ```
+
+# GCP Console
+
+- [blog-files-2024](https://console.cloud.google.com/storage/browser/blog-files-2024)
+
+# References
+
+- [Build Generative AI Apps with Firebase Genkit](https://www.cloudskillsboost.google/course_templates/1189/)
+- [Firebase Genkit](https://firebase.google.com/docs/genkit)
