@@ -16,24 +16,18 @@ configureGenkit({
   enableTracingAndMetrics: true,
 });
 
-export const ClassificationSchema = z.object({
-  url: z.string(),
-  content: z.string(),
-});
-
 const getPostTextTool = defineTool(
   {
     name: 'getPostTextTool',
-    description: 'use this tool to look up the menu for a given date',
-    inputSchema: ClassificationSchema,
-    outputSchema: z.string().describe('the menu for a given date'),
+    description: 'use this tool to get the post content',
+    inputSchema: z.object({}),
+    outputSchema: z.string(),
   },
   async (input) => {
-
     const storage = new Storage();
-    const postFile = storage.bucket("blog-files-2024").file(input.url);
+    const postFile = storage.bucket("blog-files-2024").file("all/pdf2/2013-11-28_Fase.pdf");
     console.log(postFile.name);
-    const contents = await postFile.download();    
+    const contents = await postFile.download();
     return contents.toString();
   }
 );
@@ -43,13 +37,14 @@ export const classificationPrompt = defineDotprompt(
   {
     name: "postClassification",
     model: gemini15Flash,
-    input: { schema: ClassificationSchema },
+    input: z.string(),
     output: { format: "text" },
     config: { temperature: 0 },
+    tools: [getPostTextTool],
   },
   `
   Você é um assistente de classificação de postagens de um blog de filosofia.
-  Dada a url de uma postagem, sua tarefa é descobrir a qual categoria ela pertence na lista de categorias de postagens fornecida abaixo.
+  Dado o conteúdo de uma postagem, sua tarefa é descobrir a qual categoria ela pertence na lista de categorias de postagens fornecida abaixo.
 
   Antropologia
   Ciência
@@ -68,14 +63,14 @@ export const classificationPrompt = defineDotprompt(
   Tecnologia
 
   Classifique:
-  {{url}}?
+  {{input}}?
   `
 );
 
 export const classificationFlow = defineFlow(
   {
     name: "classificationFlow",
-    inputSchema: ClassificationSchema,
+    inputSchema: z.string(),
     outputSchema: z.string(),
   },
   async (input) => {
