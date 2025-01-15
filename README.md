@@ -9,6 +9,7 @@ npm init -y
 genkit init
 gcloud services enable aiplatform.googleapis.com
 get-content genkit-flows-app/src/index.ts | %{$_ -replace "us-central1","southamerica-east1"}
+genkit config set analyticsOptOut true
 ```
 
 # Run
@@ -29,6 +30,12 @@ cd genkit-flows-app && genkit start
 
 ```bash
 genkit flow:run classificationFlow '{"url": "all/pdf2/2016-02-18_Projeto_Capitalismo_e_Esquizofrenia_.pdf","content": ""}' -s 
+```
+
+# Eval
+
+```bash
+genkit eval:flow classificationFlow --input testInputs.json
 ```
 
 # GCP Console

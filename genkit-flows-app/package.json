@@ -1,14 +1,17 @@
 {
-  "main": "lib/index.js",
-  "scripts": {
-    "start": "node lib/index.js",
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "name": "genkit-flows-app",
   "version": "1.0.0",
   "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node lib/index.js",
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,15 +19,14 @@
     "@genkit-ai/ai": "^0.5.17",
     "@genkit-ai/core": "^0.5.17",
     "@genkit-ai/dotprompt": "^0.5.17",
+    "@genkit-ai/evaluator": "^0.9.12",
     "@genkit-ai/flow": "^0.5.17",
     "@genkit-ai/vertexai": "^0.5.17",
-    "@google-cloud/storage": "^7.15.0",
     "express": "^4.21.2",
     "pdf-ts": "^0.0.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/google-cloud__storage": "^2.3.1",
     "typescript": "^5.7.3"
   }
 }
